@@ -31,7 +31,11 @@ const Login = () => {
 
       const data = await res.json();
       console.log("Backend response:", data);
-      setAuthStatus("Login Success and pub sub created");
+      if (data?.pubSubStatus == true)
+        setAuthStatus("Login Success and pub sub created");
+      else {
+        setAuthStatus("Login Success but pub sub not created");
+      }
     } catch (e) {
       setAuthStatus("Login Failed");
       // console.log(e.json());
