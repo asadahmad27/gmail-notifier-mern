@@ -23,7 +23,8 @@ const EmailsData = () => {
             })
           );
           setData(dataArray);
-          onSelectMail(selectedMail?.email);
+          console.log("beforee", selectedMail);
+          onSelectMail(selectedMail);
         } else {
           setData([]);
         }
@@ -43,7 +44,7 @@ const EmailsData = () => {
 
   const onSelectMail = (mail) => {
     const mailData = data?.filter((item) => item.id === mail.id);
-    console.log(mailData);
+    console.log(mailData, "maildata", mail);
     setSelectedMail(mailData[0]);
   };
   return (
