@@ -24,7 +24,7 @@ const EmailsData = () => {
           );
           setData(dataArray);
           console.log("beforee", selectedMail);
-          onSelectMail(selectedMail);
+          updateSelectedMailWhenDataArrive();
         } else {
           setData([]);
         }
@@ -42,6 +42,10 @@ const EmailsData = () => {
 
   console.log(data, "Dataaa");
 
+  const updateSelectedMailWhenDataArrive = () => {
+    console.log("inside updateSelectedMailWhenDataArrive", selectedMail);
+    onSelectMail(selectedMail);
+  };
   const onSelectMail = (mail) => {
     const mailData = data?.filter((item) => item.id === mail.id);
     console.log(mailData, "maildata", mail);
