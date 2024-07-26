@@ -56,7 +56,7 @@ const Login = () => {
       <hr />
       {authStatus && (
         <>
-          <p style={{ fontSize: "24px", color: "yellow" }}>{authStatus}</p>
+          <p style={{ fontSize: "24px", color: "blue" }}>{authStatus}</p>
           <hr />
         </>
       )}
