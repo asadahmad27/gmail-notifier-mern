@@ -34,6 +34,15 @@ const Login = () => {
   return (
     <div>
       <button onClick={() => login()}>Sign in with Google 🚀 </button>
+      <h3>Note:</h3>
+      <p>
+        If you are workspace admin then kindly add our app in your workspace by
+        going to Google Admin
+      </p>
+      <p>
+        Client ID:
+        226341879966-a1nf9tfijbfkjqrlmqpdephpjd5ilquh.apps.googleusercontent.com
+      </p>
     </div>
   );
 };
