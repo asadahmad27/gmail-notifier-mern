@@ -181,8 +181,10 @@ async function createGmailWatch(auth, email) {
       },
     });
     console.log("Pubsub Created for ", email);
+    return true;
   } catch (e) {
     console.log("Error in gmail watch", e);
+    return false;
   }
 }
 
@@ -212,12 +214,15 @@ app.post("/store-tokens", async (req, res) => {
     const ref = db.ref(`users/${userId}`);
     await ref.set({ tokens, email });
 
-    await createGmailWatch(oauth2Client, email);
+    console.log("login succes!");
+    const pubSubStatus = await createGmailWatch(oauth2Client, email);
 
     // Send tokens to the client or store them in your database
-    res.status(200).send({ access_token, refresh_token, id_token });
+    res
+      .status(200)
+      .send({ access_token, refresh_token, id_token, pubSubStatus });
   } catch (error) {
-    console.error("Error exchanging authorization code for tokens:", error);
+    console.log("Error exchanging authorization code for tokens:", error);
     res.status(400).send("Error exchanging authorization code for tokens");
   }
 });

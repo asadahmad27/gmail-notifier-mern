@@ -30,31 +30,4 @@ provider.setCustomParameters({
   access_type: "offline",
 });
 
-const signInWithGoogle = () => {
-  return signInWithPopup(auth, provider)
-    .then((result) => {
-      // Handle result.user here
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      // const token = credential.idToken;
-      // The signed-in user info.
-      // const user = result.user;
-      console.log(credential, result);
-      return { credential, user: result };
-      // return result.user;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
-
-const logOut = () => {
-  return signOut(auth)
-    .then(() => {
-      console.log("User signed out");
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
-
-export { auth, db, realtimeDb, signInWithGoogle, logOut, ref, onValue };
+export { auth, db, realtimeDb, ref, onValue };

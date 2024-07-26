@@ -4,7 +4,7 @@ FROM node:19.5.0-alpine
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install --verbose
+RUN npm install
 RUN npm cache clean --force
 
 # Copy the rest of your application
