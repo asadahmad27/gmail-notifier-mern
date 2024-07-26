@@ -89,7 +89,8 @@ const storeMailsInDB = async (mails, userId) => {
       const existingMails = snapshot.val() || [];
 
       // Combine existing mails with new mails
-      const updatedMails = existingMails.concat(mails);
+      // const updatedMails = existingMails.concat(mails);
+      const updatedMails = [...mails, ...existingMails];
 
       // Update the mails key with combined data
       ref.set(updatedMails, (error) => {

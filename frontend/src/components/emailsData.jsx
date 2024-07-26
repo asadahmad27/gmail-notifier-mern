@@ -23,8 +23,8 @@ const EmailsData = () => {
             })
           );
           setData(dataArray);
-          console.log("beforee", selectedMail);
-          updateSelectedMailWhenDataArrive();
+          //   console.log("beforee", selectedMail);
+          //   updateSelectedMailWhenDataArrive(dataArray);
         } else {
           setData([]);
         }
@@ -40,14 +40,18 @@ const EmailsData = () => {
     return () => unsubscribe();
   }, []);
 
-  console.log(data, "Dataaa");
+  useEffect(() => {
+    updateSelectedMailWhenDataArrive();
+  }, [data]);
+
+  console.log(data, "Dataaa", selectedMail);
 
   const updateSelectedMailWhenDataArrive = () => {
-    console.log("inside updateSelectedMailWhenDataArrive", selectedMail);
+    console.log("inside updateSelectedMailWhenDataArrive", selectedMail, data);
     onSelectMail(selectedMail);
   };
   const onSelectMail = (mail) => {
-    const mailData = data?.filter((item) => item.id === mail.id);
+    const mailData = data?.filter((item) => item?.id === mail?.id);
     console.log(mailData, "maildata", mail);
     setSelectedMail(mailData[0]);
   };
