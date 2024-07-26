@@ -23,6 +23,7 @@ const EmailsData = () => {
             })
           );
           setData(dataArray);
+          onSelectMail(selectedMail?.email);
         } else {
           setData([]);
         }
