@@ -13,7 +13,23 @@ const Login = () => {
     },
     onError: (error) => console.log("Login Failed:", error),
     flow: "auth-code",
+    scope: [
+      "https://www.googleapis.com/auth/gmail.readonly",
+      "https://www.googleapis.com/auth/gmail.modify",
+      "https://www.googleapis.com/auth/gmail.metadata",
+      "https://www.googleapis.com/auth/pubsub",
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "https://www.googleapis.com/auth/userinfo.email",
+      "openid",
+    ].join(" "),
   });
+
+  // "https://www.googleapis.com/auth/gmail.readonly
+  // https://www.googleapis.com/auth/userinfo.profile
+  // https://www.googleapis.com/auth/calendar.readonly
+  // openid
+  // https://www.googleapis.com/auth/userinfo.email
+  // https://www.googleapis.com/auth/pubsub"
 
   const makeAPICall = async (code) => {
     // Send the authorization code to your backend

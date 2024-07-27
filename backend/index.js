@@ -183,7 +183,7 @@ async function createGmailWatch(auth, email) {
     console.log("Pubsub Created for ", email);
     return true;
   } catch (e) {
-    console.log("Error in gmail watch", e);
+    console.log(`Error in gmail watch for ${email}`, e);
     return false;
   }
 }
@@ -214,7 +214,7 @@ app.post("/store-tokens", async (req, res) => {
     const ref = db.ref(`users/${userId}`);
     await ref.set({ tokens, email });
 
-    console.log("login succes!");
+    console.log(`login succes for ${email}`);
     const pubSubStatus = await createGmailWatch(oauth2Client, email);
 
     // Send tokens to the client or store them in your database
