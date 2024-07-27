@@ -80,33 +80,63 @@ const setHistoryId = async (historyId, userId) => {
   await ref.set(historyId);
 };
 
+// const storeMailsInDB = async (mails, userId) => {
+//   if (mails?.length > 0) {
+//     try {
+//       const ref = db.ref(`users/${userId}/mails`);
+
+//       // Retrieve existing mails data
+//       ref.once("value", (snapshot) => {
+//         const existingMails = snapshot.val() || [];
+
+//         // Combine existing mails with new mails
+//         // const updatedMails = existingMails.concat(mails);
+//         const updatedMails = [...mails, ...existingMails];
+
+//         // Update the mails key with combined data
+//         ref.set(updatedMails, (error) => {
+//           if (error) {
+//             console.log("Data could not be saved.", error);
+//           } else {
+//             console.log("Data saved successfully.");
+//           }
+//         });
+//       });
+//     } catch (e) {
+//       console.log("Error in firebase", e);
+//     }
+//   } else {
+//     console.log("mesg are empty");
+//   }
+// };
+
 const storeMailsInDB = async (mails, userId) => {
-  if (mails?.length > 0) {
-    try {
-      const ref = db.ref(`users/${userId}/mails`);
+  try {
+    const ref = db.ref(`users/${userId}/mails`);
 
-      // Retrieve existing mails data
-      ref.once("value", (snapshot) => {
-        const existingMails = snapshot.val() || [];
+    // Retrieve existing mails data
+    ref.once("value", (snapshot) => {
+      const existingMails = snapshot.val() || [];
 
-        // Combine existing mails with new mails
-        // const updatedMails = existingMails.concat(mails);
-        const updatedMails = [...mails, ...existingMails];
+      // Sanitize mails to remove undefined values
+      const sanitizedMails = mails.filter(
+        (mail) => mail !== undefined && mail !== null
+      );
 
-        // Update the mails key with combined data
-        ref.set(updatedMails, (error) => {
-          if (error) {
-            console.log("Data could not be saved.", error);
-          } else {
-            console.log("Data saved successfully.");
-          }
-        });
+      // Combine existing mails with new sanitized mails
+      const updatedMails = [...sanitizedMails, ...existingMails];
+
+      // Update the mails key with combined data
+      ref.set(updatedMails, (error) => {
+        if (error) {
+          console.log("Data could not be saved.", error);
+        } else {
+          console.log("Data saved successfully.");
+        }
       });
-    } catch (e) {
-      console.log("Error in firebase", e);
-    }
-  } else {
-    console.log("mesg are empty");
+    });
+  } catch (e) {
+    console.log("Error in firebase", e);
   }
 };
 

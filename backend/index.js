@@ -45,7 +45,10 @@ async function getMessage(auth, messageId) {
     const res = await gmail.users.messages.get({
       userId: "me",
       id: messageId,
+      format: "full",
     });
+
+    console.log("here res", res);
 
     const message = res.data;
     const headers = message.payload.headers;
@@ -81,6 +84,7 @@ async function getMessage(auth, messageId) {
     };
 
     const parts = message.payload.parts || [];
+    console.log(parts, "parts");
     parts.forEach((part) => {
       const sanitizedMimeType = sanitizeKey(part.mimeType);
       if (
@@ -94,7 +98,7 @@ async function getMessage(auth, messageId) {
 
     return emailData;
   } catch (e) {
-    console.log("no mesg for", messageId);
+    console.log("no mesg for", messageId, e);
   }
 }
 
@@ -107,7 +111,7 @@ async function fetchInitialMessages(auth, userId) {
       labelIds: ["INBOX", "UNREAD"],
       maxResults: 10, // Adjust this number as needed
     });
-
+    console.log(res, res.data, res.data.messages, "red of webhook");
     const messages = [];
     for (const message of res.data.messages) {
       const messageDetails = await getMessage(auth, message.id);
