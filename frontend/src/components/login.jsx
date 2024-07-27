@@ -69,7 +69,7 @@ const Login = () => {
         going to Google Admin
       </p>
       <p>
-        Client ID:
+        <strong>Client ID:</strong>
         226341879966-a1nf9tfijbfkjqrlmqpdephpjd5ilquh.apps.googleusercontent.com
       </p>
       <hr />
