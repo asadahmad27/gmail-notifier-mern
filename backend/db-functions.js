@@ -81,28 +81,32 @@ const setHistoryId = async (historyId, userId) => {
 };
 
 const storeMailsInDB = async (mails, userId) => {
-  try {
-    const ref = db.ref(`users/${userId}/mails`);
+  if (mails?.length > 0) {
+    try {
+      const ref = db.ref(`users/${userId}/mails`);
 
-    // Retrieve existing mails data
-    ref.once("value", (snapshot) => {
-      const existingMails = snapshot.val() || [];
+      // Retrieve existing mails data
+      ref.once("value", (snapshot) => {
+        const existingMails = snapshot.val() || [];
 
-      // Combine existing mails with new mails
-      // const updatedMails = existingMails.concat(mails);
-      const updatedMails = [...mails, ...existingMails];
+        // Combine existing mails with new mails
+        // const updatedMails = existingMails.concat(mails);
+        const updatedMails = [...mails, ...existingMails];
 
-      // Update the mails key with combined data
-      ref.set(updatedMails, (error) => {
-        if (error) {
-          console.log("Data could not be saved.", error);
-        } else {
-          console.log("Data saved successfully.");
-        }
+        // Update the mails key with combined data
+        ref.set(updatedMails, (error) => {
+          if (error) {
+            console.log("Data could not be saved.", error);
+          } else {
+            console.log("Data saved successfully.");
+          }
+        });
       });
-    });
-  } catch (e) {
-    console.log("Error in firebase", e);
+    } catch (e) {
+      console.log("Error in firebase", e);
+    }
+  } else {
+    console.log("mesg are empty");
   }
 };
 

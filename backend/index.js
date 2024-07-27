@@ -114,7 +114,7 @@ async function fetchInitialMessages(auth, userId) {
       messages.push(messageDetails);
     }
 
-    console.log("Initial messages retrievd...");
+    console.log("Initial messages retrievd...", messages, userId);
     storeMailsInDB(messages, userId);
 
     // Fetch the current history ID
